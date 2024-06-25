@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { routes } from "./components/common/common";
+import NavBar from "./pages/NavBar";
+import { Grid } from "@mui/material";
+import "./App.css";
+import ErrorBoundary from "./components/errorboundry";
 
-function App() {
+const Router = createBrowserRouter(routes);
+
+const Routing = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <RouterProvider router={Router}>
+        <Grid container>
+          <Grid item xs={12} lg={12} sm={12} className="sticky">
+            <ErrorBoundary>
+              <NavBar />
+            </ErrorBoundary>
+          </Grid>
+        </Grid>
+      </RouterProvider>
+    </>
   );
-}
+};
 
-export default App;
+export default Routing;

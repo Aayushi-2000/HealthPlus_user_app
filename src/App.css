@@ -46,6 +46,14 @@ body {
   max-width: 1500px;
   margin: auto;
 }
+
+.mainContainer {
+  padding-top: 30px;
+  max-height: max-content;
+  max-width: 1500px;
+  margin: auto;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

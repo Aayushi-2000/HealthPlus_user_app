@@ -3,26 +3,24 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
+import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import MoreIcon from "@mui/icons-material/MoreVert";
 import { Search, SearchIconWrapper, StyledInputBase } from "../styles";
 import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
 import { useNavigate } from "react-router-dom";
-import { Button, Link } from "@mui/material";
+import { Link } from "@mui/material";
 
 export default function NavBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const navigate = useNavigate();
   const isMenuOpen = anchorEl;
-  const isMobileMenuOpen = mobileMoreAnchorEl;
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -77,94 +75,81 @@ export default function NavBar() {
         vertical: "top",
         horizontal: "right",
       }}
-      open={isMobileMenuOpen}
+      open={mobileMoreAnchorEl}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <AddShoppingCartIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
+      <MenuItem onClick={() => navigate("/")}>Home</MenuItem>
+      <MenuItem onClick={() => navigate("/products")}>Products</MenuItem>
+      <MenuItem>My Orders</MenuItem>
+      <MenuItem>My Profile</MenuItem>
+      <MenuItem>My account</MenuItem>
     </Menu>
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <>
       <AppBar position="static" sx={{ backgroundColor: "black" }}>
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <HealthAndSafetyIcon fontSize="large" />
-          </IconButton>
+          <HealthAndSafetyIcon
+            sx={{
+              display: { xs: "none", md: "flex", sm: "flex" },
+              mr: 1,
+            }}
+          />
           <Link
             onClick={() => navigate("/")}
             underline="none"
             component="button"
             color="white"
             variant="h6"
+            sx={{ display: { xs: "none", sm: "flex", md: "flex" } }}
           >
             Pharma Store
           </Link>
+          <Box display="flex">
+            <IconButton
+              sx={{ display: { xs: "flex", sm: "none", md: "none" } }}
+              size="large"
+              aria-label="account of current user"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
 
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
-
-          <Box sx={{ flexGrow: 1 }} />
-
-          <Link
-            onClick={() => navigate("/products")}
-            underline="none"
-            component="button"
-            color="white"
-            variant="h6"
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+              />
+            </Search>
+          </Box>
+          <Box sx={{ flexGrow: { xs: "none", sm: 1, md: 1, lg: 1 } }} />
+          <Box
+            sx={{
+              display: { xs: "none", sm: "flex", md: "flex" },
+            }}
           >
-            Products
-          </Link>
+            <Link
+              onClick={() => navigate("/products")}
+              underline="none"
+              component="button"
+              color="white"
+              variant="h6"
+            >
+              Products
+            </Link>
 
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
               size="large"
               aria-label="show 4 new mails"
               color="inherit"
+              onClick={() => navigate("/cart")}
             >
               <Badge badgeContent={1} color="error">
                 <AddShoppingCartIcon />
@@ -191,22 +176,21 @@ export default function NavBar() {
               <AccountCircle />
             </IconButton>
           </Box>
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ display: { xs: "flex", sm: "none", md: "none" } }}>
             <IconButton
               size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
+              aria-label="show 4 new mails"
               color="inherit"
+              onClick={() => navigate("/cart")}
             >
-              <MoreIcon />
+              <Badge badgeContent={1} color="error">
+                <AddShoppingCartIcon />
+              </Badge>
             </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </Box>
+      {renderMobileMenu} {renderMenu}
+    </>
   );
 }

@@ -30,12 +30,14 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
-    width: "100%",
+    width: "100%", // Default to full width on smaller screens
     [theme.breakpoints.up("md")]: {
-      width: "100ch",
+      width: "50ch", // Set to 50 characters width on medium screens and larger
+    },
+    [theme.breakpoints.up("lg")]: {
+      width: "60ch", // Example: Adjust for larger screens if needed
     },
   },
 }));

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Grid } from "@mui/material";
-import { Paper, Typography } from "@mui/material";
+import { Paper } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
 import { profile } from "../components/common/constants";
 import CardContents from "../views/cardContent";
@@ -16,16 +16,16 @@ const HomePage = () => {
         ))}
       </Carousel>
       <Grid container spacing={6} pb={2}>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
           <CardContents />
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
           <CardContents />
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
           <CardContents />
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
           <CardContents />
         </Grid>
       </Grid>
